@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 ///
 /// Typically used to display debugging information such as build type,
 /// API host IP address, etc.
-class FlavorOverlay extends StatefulWidget {
+class FlavorOverlay extends StatelessWidget {
   static const Color defaultForegroundColor = Colors.white;
-  static const Color defaultBackgroundColor = Color(0xB3FF0000); // Red with 70% opacity
+  static const Color defaultBackgroundColor = Color(0xB3FF3333); // Red with 70% opacity
 
   final String? flavorName;
-  final GlobalKey<NavigatorState> rootNavigatorKey;
   final Color foregroundColor;
   final Color backgroundColor;
   final Widget child;
@@ -17,54 +16,29 @@ class FlavorOverlay extends StatefulWidget {
   const FlavorOverlay({
     super.key,
     required this.flavorName,
-    required this.rootNavigatorKey,
     this.foregroundColor = defaultForegroundColor,
     this.backgroundColor = defaultBackgroundColor,
     required this.child,
   });
 
   @override
-  State<FlavorOverlay> createState() => _FlavorOverlayState();
-}
-
-class _FlavorOverlayState extends State<FlavorOverlay> {
-  OverlayEntry? _overlayEntry;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    if (_overlayEntry == null && (widget.flavorName != null) && (widget.rootNavigatorKey.currentContext != null)) {
-      WidgetsBinding.instance.addPostFrameCallback((_) => _buildOverlay());
-    }
-  }
-
-  void _buildOverlay() {
-    final overlay = Overlay.of(context);
-    final flavorName = widget.flavorName;
-    if (flavorName != null) {
-      _overlayEntry = OverlayEntry(
-        builder: (_) => _FlavorOverlayView(
-          text: flavorName,
-          foregroundColor: widget.foregroundColor,
-          backgroundColor: widget.backgroundColor,
-        ),
-      );
-      overlay.insert(_overlayEntry!);
-    }
-  }
-
-  @override
-  void dispose() {
-    _overlayEntry?.remove();
-    _overlayEntry = null;
-
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return widget.child;
+    if (flavorName == null) {
+      return child;
+    }
+
+    return Stack(
+      children: [
+        child,
+
+        // Overlay
+        _FlavorOverlayView(
+          text: flavorName!,
+          foregroundColor: foregroundColor,
+          backgroundColor: backgroundColor,
+        ),
+      ],
+    );
   }
 }
 
@@ -89,19 +63,25 @@ class _FlavorOverlayView extends StatelessWidget {
       top: topSafeZone + 2,
       left: 0,
       right: 0,
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            borderRadius: BorderRadius.circular(3),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
-            child: Text(
-              text.toUpperCase(),
-              style: TextStyle(fontSize: 11, height: 1.1, fontWeight: FontWeight.bold, color: foregroundColor),
-              textAlign: TextAlign.center,
+      child: IgnorePointer(
+        ignoring: true,
+        child: Material(
+          type: MaterialType.transparency,
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: backgroundColor,
+                borderRadius: BorderRadius.circular(3),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
+                child: Text(
+                  text.toUpperCase(),
+                  style: TextStyle(fontSize: 11, height: 1.1, fontWeight: FontWeight.bold, color: foregroundColor),
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ),
           ),
         ),
