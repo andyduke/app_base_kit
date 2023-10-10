@@ -13,5 +13,7 @@ export 'src/widgets/focus_builder.dart';
 export 'src/widgets/generic_dropdown.dart';
 export 'src/widgets/bottom_sheet_scaffold.dart';
 
+export 'src/router/modal_bottom_sheet_page.dart';
+
 export 'src/widgets/action_button/action_button_settings.dart';
 export 'src/widgets/action_button/action_button.dart';

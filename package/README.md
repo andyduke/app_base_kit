@@ -44,6 +44,11 @@ A widget that defines how focus should be displayed around the nested widget.
 Scaffolding Scrollable Bottom Sheet.
 
 
+### ModalBottomSheetPage
+
+Modal route page Bottom Sheet for Navigator 2.0. Used in conjunction with [BottomSheetScaffold](#bottomsheetscaffold).
+
+
 ### ErrorView
 
 A widget that displays an error message, a detailed error message (for example, a stack trace) that expands by button, and an optional "Retry" button.
