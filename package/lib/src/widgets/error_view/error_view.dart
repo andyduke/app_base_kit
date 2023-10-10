@@ -9,6 +9,8 @@ typedef ErrorViewRefreshCallback = Future<void> Function();
 /// message (for example, a stack trace) that expands by button,
 /// and an optional "Retry" button.
 class ErrorView extends StatelessWidget {
+  static const Icon defaultIcon = Icon(Icons.error);
+  static const String defaultTitle = 'Something went wrong';
   static const String defaultDetailsButtonText = 'Details';
 
   static const EdgeInsetsGeometry defaultPadding = EdgeInsets.all(16.0);
@@ -24,8 +26,8 @@ class ErrorView extends StatelessWidget {
 
   const ErrorView({
     super.key,
-    this.icon,
-    required this.title,
+    this.icon = defaultIcon,
+    this.title = defaultTitle,
     this.subtitle,
     this.detailsButtonText = defaultDetailsButtonText,
     this.error,
@@ -36,8 +38,8 @@ class ErrorView extends StatelessWidget {
 
   const ErrorView.refreshable({
     super.key,
-    this.icon,
-    required this.title,
+    this.icon = defaultIcon,
+    this.title = defaultTitle,
     this.subtitle,
     this.detailsButtonText = defaultDetailsButtonText,
     this.error,
