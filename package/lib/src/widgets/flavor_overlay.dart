@@ -61,8 +61,8 @@ class _FlavorOverlayView extends StatelessWidget {
 
     return Positioned(
       top: topSafeZone + 2,
-      left: 0,
-      right: 0,
+      left: 6,
+      right: 6,
       child: IgnorePointer(
         ignoring: true,
         child: Material(
