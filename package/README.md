@@ -62,6 +62,11 @@ The button can display a progress indicator and
 prevent tapping while showing progress.
 
 
+### TripleTapDetector
+
+Widget that recognizes triple tap.
+
+
 
 ## Credits
 

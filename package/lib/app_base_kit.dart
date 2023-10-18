@@ -12,6 +12,7 @@ export 'src/widgets/flavor_overlay.dart';
 export 'src/widgets/focus_builder.dart';
 export 'src/widgets/generic_dropdown.dart';
 export 'src/widgets/bottom_sheet_scaffold.dart';
+export 'src/widgets/triple_tap_detector.dart';
 
 export 'src/router/modal_bottom_sheet_page.dart';
 
