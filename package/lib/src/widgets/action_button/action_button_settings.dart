@@ -1,4 +1,4 @@
-import 'package:app_base_kit/src/inherited_settings.dart';
+import 'package:app_base_kit/src/defaults.dart';
 import 'package:flutter/material.dart';
 
 typedef ActionButtonBuilder = Widget Function(
@@ -10,8 +10,8 @@ typedef ActionButtonBuilder = Widget Function(
 
 typedef ActionButtonIndicatorBuilder = Widget Function(BuildContext context, double size);
 
-class ActionButtonSettings implements InheritedSettingsData {
-  static ActionButtonSettings defaultSettings = ActionButtonSettings(
+class ActionButtonDefaults implements DefaultsData {
+  static ActionButtonDefaults defaults = ActionButtonDefaults(
     primaryBuilder: (context, child, onPressed, inProgress) {
       final theme = Theme.of(context);
       return ElevatedButton(
@@ -39,7 +39,7 @@ class ActionButtonSettings implements InheritedSettingsData {
   final ActionButtonBuilder? builder;
   final ActionButtonIndicatorBuilder? indicatorBuilder;
 
-  ActionButtonSettings({
+  ActionButtonDefaults({
     this.primaryBuilder,
     this.builder,
     this.indicatorBuilder,

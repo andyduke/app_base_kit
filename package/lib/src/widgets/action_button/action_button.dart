@@ -1,4 +1,4 @@
-import 'package:app_base_kit/src/inherited_settings.dart';
+import 'package:app_base_kit/src/defaults.dart';
 import 'package:app_base_kit/src/widgets/action_button/action_button_settings.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +34,7 @@ class ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final settings = InheritedSettings.settingsOf<ActionButtonSettings>(context, ActionButtonSettings.defaultSettings);
+    final settings = Defaults.defaultsOf<ActionButtonDefaults>(context, ActionButtonDefaults.defaults);
 
     final body = Stack(
       children: [

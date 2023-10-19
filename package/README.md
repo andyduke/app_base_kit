@@ -5,9 +5,112 @@ A basic set of widgets and functions for creating a Flutter application.
 
 ## Widgets
 
-### InheritedSettings
+### Defaults
 
-A generic `InheritedWidget` that defines a set of settings for underlying widgets.
+A generic `InheritedWidget` that defines a set of defaults for underlying widgets.
+
+Usage example:
+```dart
+// Defaults class
+class ActionButtonDefaults implements DefaultsData {
+
+  static ActionButtonDefaults defaults = ActionButtonDefaults(
+    builder: (context, child, onPressed) => ElevatedButton(
+      onPressed: onPressed,
+      child: child,
+    ),
+  );
+
+  final Widget Function(BuildContext context, Widget child, VoidCallback? onPressed) builder;
+
+  ActionButtonDefaults({
+    required this.builder,
+  });
+
+}
+
+// Widget that uses defaults
+class ActionButton extends StatelessWidget {
+
+  final Widget child;
+  final VoidCallback? onPressed;
+
+  const ActionButton({
+    required this.child,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // Getting defaults
+    final settings = Defaults.defaultsOf<ActionButtonDefaults>(context, ActionButtonDefaults.defaults);
+
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        minWidth: 200,
+      ),
+      child: settings.builder(
+        context,
+        child,
+        onPressed,
+      ),
+    );
+  }
+
+}
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData.light(),
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+
+              // Defining defaults for underlying widgets
+              Defaults(
+                [
+                  ActionButtonDefaults(
+                    builder: (context, child, onPressed) => OutlinedButton(
+                      onPressed: onPressed,
+                      child: child,
+                    ),
+                  ),
+                ],
+                child: MyWidget(),
+              ),
+
+              //
+              const Divider(),
+
+              //
+              MyWidget(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class MyWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ActionButton(
+      onPressed: () {},
+      child: const Text('OK'),
+    );
+  }
+}
+```
 
 
 ### OfflineBuilder
