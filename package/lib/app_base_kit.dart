@@ -1,5 +1,8 @@
 library app_base_kit;
 
+export 'src/defaults.dart';
+export 'src/result.dart';
+
 export 'src/offline/offline_tracker.dart';
 export 'src/offline/offline_builder.dart';
 
