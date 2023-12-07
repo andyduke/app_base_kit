@@ -108,17 +108,21 @@ abstract interface class DefaultsData {}
 /// }
 ///
 /// ```
-class Defaults extends InheritedWidget {
+class Defaults extends StatefulWidget {
   final List<DefaultsData> data;
+  final Widget child;
 
   const Defaults(
     this.data, {
     super.key,
-    required super.child,
+    required this.child,
   });
 
+  @override
+  State<Defaults> createState() => _DefaultsState();
+
   static T? maybeDefaultsOf<T extends DefaultsData>(BuildContext context) {
-    final settings = context.dependOnInheritedWidgetOfExactType<Defaults>()?.data;
+    final settings = context.dependOnInheritedWidgetOfExactType<_DefaultsScope>()?.state.data;
     return (settings?.firstWhereOrNull((s) => s is T) as T?);
   }
 
@@ -127,7 +131,7 @@ class Defaults extends InheritedWidget {
   }
 
   static List<DefaultsData>? maybeOf(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<Defaults>()?.data;
+    return context.dependOnInheritedWidgetOfExactType<_DefaultsScope>()?.state.data;
   }
 
   static List<DefaultsData> of(BuildContext context) {
@@ -135,7 +139,44 @@ class Defaults extends InheritedWidget {
     assert(result != null, 'No Defaults found in context');
     return result!;
   }
+}
+
+class _DefaultsState extends State<Defaults> {
+  List<DefaultsData> parentData = [];
 
   @override
-  bool updateShouldNotify(Defaults oldWidget) => data != oldWidget.data;
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final parent = context.findAncestorWidgetOfExactType<_DefaultsScope>()?.state.data;
+    parentData
+      ..clear()
+      ..addAll(parent ?? []);
+  }
+
+  List<DefaultsData> get data => [
+        ...parentData,
+        ...widget.data,
+      ];
+
+  @override
+  Widget build(BuildContext context) {
+    return _DefaultsScope(
+      state: this,
+      child: widget.child,
+    );
+  }
+}
+
+class _DefaultsScope extends InheritedWidget {
+  final _DefaultsState state;
+
+  const _DefaultsScope({
+    // super.key,
+    required this.state,
+    required super.child,
+  });
+
+  @override
+  bool updateShouldNotify(_DefaultsScope oldWidget) => state.data != oldWidget.state.data;
 }
