@@ -74,8 +74,6 @@ class _GlobalShortcutsState extends State<GlobalShortcuts> {
           final rawState = RawKeyboard.instance;
 
           if (shortcut.key.accepts(rawEvent, rawState)) {
-            // TODO: How to find nested Actions?
-
             // Find parent actions
             final Action<Intent>? action = Actions.maybeFind<Intent>(
               context,

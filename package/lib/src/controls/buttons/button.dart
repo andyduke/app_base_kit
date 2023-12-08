@@ -25,19 +25,10 @@ abstract class Button extends StatefulWidget {
   /// If true, this widget may request the primary focus.
   final bool canRequestFocus;
 
+  /// Whether detected gestures should provide acoustic and/or haptic feedback.
   final bool enableFeedback;
 
-  /*
-  factory Button.text({
-    required Widget child,
-    required VoidCallback onPressed,
-  }) {
-    return TextButton(
-      onPressed: onPressed,
-      child: child,
-    );
-  }
-  */
+  final Duration? pressedDuration;
 
   const Button({
     super.key,
@@ -48,6 +39,7 @@ abstract class Button extends StatefulWidget {
     this.focusNode,
     this.canRequestFocus = true,
     this.enableFeedback = true,
+    this.pressedDuration,
   });
 
   Widget builder(BuildContext context, Set<ButtonState> states, Widget child);
@@ -64,9 +56,9 @@ class _ButtonState extends State<Button> {
     ButtonActivateIntent: CallbackAction<ButtonActivateIntent>(onInvoke: _activateOnIntent),
   };
 
-  // TODO: Make customizable
-  // static const Duration _activationDuration = Duration(milliseconds: 100);
-  static const Duration _activationDuration = Duration(milliseconds: 300);
+  static const Duration _defaultPressedDuration = Duration(milliseconds: 300);
+  late Duration _pressedDuration = widget.pressedDuration ?? _defaultPressedDuration;
+
   Timer? _activationTimer;
 
   @override
@@ -90,6 +82,10 @@ class _ButtonState extends State<Button> {
 
     if (oldWidget.enabled != widget.enabled) {
       _handleDisabledUpdate(widget.enabled, silent: true);
+    }
+
+    if (oldWidget.pressedDuration != widget.pressedDuration) {
+      _pressedDuration = widget.pressedDuration ?? _defaultPressedDuration;
     }
   }
 
@@ -172,7 +168,7 @@ class _ButtonState extends State<Button> {
       widget.onPressed();
 
       // Delay the call to `_handlePressedUpdate` to simulate a pressed delay.
-      _activationTimer = Timer(_activationDuration ~/ 2, () {
+      _activationTimer = Timer(_pressedDuration ~/ 2, () {
         _handlePressedUpdate(false);
       });
     }
@@ -181,7 +177,7 @@ class _ButtonState extends State<Button> {
   void _handlePressCancelled() {
     if (_enabled) {
       // Delay the call to `_handlePressedUpdate` to simulate a pressed delay.
-      _activationTimer = Timer(_activationDuration ~/ 2, () {
+      _activationTimer = Timer(_pressedDuration ~/ 2, () {
         _handlePressedUpdate(false);
       });
     }
@@ -198,7 +194,7 @@ class _ButtonState extends State<Button> {
       widget.onPressed();
 
       // Delay the call to `_handlePressedUpdate` to simulate a pressed delay.
-      _activationTimer = Timer(_activationDuration, () {
+      _activationTimer = Timer(_pressedDuration, () {
         _handlePressedUpdate(false);
       });
     }
@@ -237,40 +233,3 @@ class _ButtonState extends State<Button> {
     );
   }
 }
-
-/*
-class TextButton extends Button {
-  
-  const TextButton({required super.onPressed, required super.child});
-
-  @override
-  Widget builder(BuildContext context, Set<ButtonState> states, Widget child) {
-    / *
-    var body = child;
-    
-    if (states.contains(ButtonState.hover)) {
-      body = DefaultTextStyle.merge(
-        style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.teal),
-        child: body,
-      );
-    }
-    
-    return body;
-    * /
-    
-    final DefaultTextStyle parent = DefaultTextStyle.of(context);
-    return AnimatedDefaultTextStyle(
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-      style: states.contains(ButtonState.hover)
-        ? parent.style.merge(const TextStyle(fontWeight: FontWeight.bold, color: Colors.teal))
-        : parent.style,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: child,
-      ),
-    );
-  }
-  
-}
-*/
