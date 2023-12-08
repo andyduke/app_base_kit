@@ -1,6 +1,9 @@
 import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class GlobalShortcuts extends StatefulWidget {
   final Map<ShortcutActivator, Intent> shortcuts;
@@ -18,6 +21,8 @@ class GlobalShortcuts extends StatefulWidget {
 
 class _GlobalShortcutsState extends State<GlobalShortcuts> {
   bool _listening = false;
+
+  late final Key _key = widget.key ?? UniqueKey();
 
   @override
   void initState() {
@@ -96,6 +101,17 @@ class _GlobalShortcutsState extends State<GlobalShortcuts> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.child;
+    // VisibilityDetector prevents keydowns from being listened to within a non-top route
+    return VisibilityDetector(
+      key: _key,
+      onVisibilityChanged: (visibilityInfo) {
+        if (visibilityInfo.visibleFraction == 1) {
+          _attachListener();
+        } else {
+          _detachListener();
+        }
+      },
+      child: widget.child,
+    );
   }
 }
