@@ -24,6 +24,7 @@ export 'src/ui/stacks/hstack.dart';
 export 'src/ui/stacks/vstack.dart';
 
 export 'src/controls/generic_dropdown.dart';
+export 'src/controls/generic_control.dart';
 export 'src/controls/buttons/button.dart';
 
 export 'src/router/modal_bottom_sheet_page.dart';

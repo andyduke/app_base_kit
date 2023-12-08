@@ -10,6 +10,7 @@ enum ButtonState {
   disabled,
 }
 
+/// General button widget, without UI, but with state management and processing of focus, click, hover, etc.
 abstract class Button extends StatefulWidget {
   final Widget child;
   final VoidCallback onPressed;
