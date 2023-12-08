@@ -34,7 +34,7 @@ class VStack extends StatelessWidget {
         [],
         (prev, c) => [
           ...prev,
-          SizedBox(height: effectiveSpacing),
+          if (prev.isNotEmpty) SizedBox(height: effectiveSpacing),
           c,
         ],
       ),
