@@ -5,17 +5,19 @@ import 'package:flutter/material.dart';
 class Label extends StatelessWidget {
   final String text;
   final Intent? intent;
+  final bool interactive;
 
   const Label(
     this.text, {
     super.key,
     this.intent,
+    this.interactive = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final parts = _splitText(text);
-    if (parts.length < 3) return Text(text);
+    if (parts.length < 2) return Text(text);
 
     final TextStyle defaultStyle = DefaultTextStyle.of(context).style;
     Widget body = RichText(
@@ -46,7 +48,38 @@ class Label extends StatelessWidget {
       );
     }
 
+    if (interactive) {
+      body = GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => _handleTap(context),
+        child: MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: body,
+        ),
+      );
+    }
+
     return body;
+  }
+
+  void _handleTap(BuildContext context) {
+    const intent = ActivateIntent();
+
+    // Find parent actions
+    final Action<Intent>? action = Actions.maybeFind<Intent>(
+      context,
+      intent: intent,
+    );
+    if (action != null) {
+      final (bool enabled, Object? invokeResult) = Actions.of(context).invokeActionIfEnabled(
+        action,
+        intent,
+        context,
+      );
+      if (enabled) {
+        action.toKeyEventResult(intent, invokeResult);
+      }
+    }
   }
 
   String? _extractAcceleratorFromParts(List<String> parts) {
