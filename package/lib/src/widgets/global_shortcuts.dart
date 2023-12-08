@@ -38,14 +38,14 @@ class _GlobalShortcutsState extends State<GlobalShortcuts> {
 
   void _attachListener() {
     if (!_listening) {
-      ServicesBinding.instance.keyboard.addHandler(_listener);
+      HardwareKeyboard.instance.addHandler(_listener);
       _listening = true;
     }
   }
 
   void _detachListener() {
     if (_listening) {
-      ServicesBinding.instance.keyboard.removeHandler(_listener);
+      HardwareKeyboard.instance.removeHandler(_listener);
       _listening = false;
     }
   }

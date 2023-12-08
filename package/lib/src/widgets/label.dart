@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app_base_kit/src/widgets/global_shortcuts.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,8 @@ class Label extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (!_supportsAccelerator) return Text(text);
+
     final parts = _splitText(text);
     if (parts.length < 2) return Text(text);
 
@@ -61,6 +65,8 @@ class Label extends StatelessWidget {
 
     return body;
   }
+
+  bool get _supportsAccelerator => Platform.isWindows || Platform.isMacOS || Platform.isLinux;
 
   void _handleTap(BuildContext context) {
     const intent = ActivateIntent();
