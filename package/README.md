@@ -9,7 +9,9 @@ A basic set of widgets and functions for creating a Flutter application.
 
 A generic `InheritedWidget` that defines a set of defaults for underlying widgets.
 
-Usage example:
+<details>
+  <summary>Usage example</summary>
+
 ```dart
 // Defaults class
 class ActionButtonDefaults implements DefaultsData {
@@ -111,6 +113,7 @@ class MyWidget extends StatelessWidget {
   }
 }
 ```
+</details>
 
 
 ### OfflineBuilder
@@ -169,6 +172,71 @@ prevent tapping while showing progress.
 
 Widget that recognizes triple tap.
 
+
+### Button (Custom Buttons)
+
+To create buttons with a custom design, you can use the abstract `Button` widget as a scaffold. The `Button` widget handles typical button states such as focused, hovered, pressed, disabled, but does not implement the UI.
+
+<details>
+  <summary>An example of implementing a button in a specific design</summary>
+
+```dart
+class PrimaryButton extends Button {
+  static const animationDuration = Duration(milliseconds: 300);
+
+  const PrimaryButton({
+    super.key,
+    required super.onPressed,
+    required super.child,
+    super.enabled,
+    super.autofocus,
+    super.focusNode,
+    super.canRequestFocus,
+    super.enableFeedback,
+  }) : super(
+          pressedDuration: animationDuration,
+        );
+
+  @override
+  Widget builder(BuildContext context, Set<ButtonState> states, Widget child) {
+    return AnimatedContainer(
+      duration: animationDuration,
+      curve: Curves.easeInOut,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(6),
+        border: switch (states) {
+          Set<ButtonState>() when states.contains(ButtonState.focused) => Border.all(color: Colors.teal, width: 2.0),
+          Set<ButtonState>() => Border.all(color: Colors.transparent, width: 2.0),
+        },
+        color: switch (states) {
+          Set<ButtonState>() when states.contains(ButtonState.pressed) => Colors.teal.shade300,
+          Set<ButtonState>() when states.contains(ButtonState.hovered) => Colors.teal.shade200,
+          Set<ButtonState>() when states.contains(ButtonState.disabled) => Colors.grey.shade300,
+          _ => Colors.teal.shade100,
+        },
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: child,
+      ),
+    );
+  }
+}
+```
+</details>
+
+<details>
+  <summary>Example of using this button</summary>
+
+```dart
+PrimaryButton(
+  onPressed: () {
+    print('Primary Button Pressed!');
+  },
+  child: const Text('Primary Button'),
+),
+```
+</details>
 
 
 ## Credits
