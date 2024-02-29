@@ -6,6 +6,9 @@ export 'src/result.dart';
 export 'src/offline/offline_tracker.dart';
 export 'src/offline/offline_builder.dart';
 
+export 'src/utils/color_set.dart';
+export 'src/utils/state_property.dart';
+
 export 'src/widgets/expansion_details.dart';
 
 export 'src/widgets/error_view/error_view_theme.dart';

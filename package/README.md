@@ -239,6 +239,78 @@ PrimaryButton(
 </details>
 
 
+### ColorSet
+
+Makes it possible to describe a pair of colors: foreground and background. Convenient to use with theme extensions.
+
+
+### StateProperty
+
+Interface for classes that `resolve` to a value of type `T` based on a widget's interactive "state", which is defined as a set of `S` states.
+
+For example, based on `StateProperty`, you can implement a property class for various **button states**:
+```dart
+enum ButtonState {
+  hovered,
+  pressed,
+  disabled,
+}
+
+class ButtonStateProperty<T> implements StateProperty<T, ButtonState> {
+  final T normal;
+  final T? hovered;
+  final T? pressed;
+  final T? disabled;
+
+  const ButtonStateProperty(
+    this.normal, {
+    this.hovered,
+    this.pressed,
+    this.disabled,
+  });
+
+  @override
+  T resolve(Set<ButtonState> states) {
+    if (states.contains(ButtonState.disabled)) {
+      return disabled ?? normal;
+    }
+    if (states.contains(ButtonState.pressed)) {
+      return pressed ?? normal;
+    }
+    if (states.contains(ButtonState.hovered)) {
+      return hovered ?? normal;
+    }
+    return normal;
+  }
+
+  static ButtonStateProperty<T>? lerp<T>(
+    ButtonStateProperty<T>? a,
+    ButtonStateProperty<T>? b,
+    double t,
+    T? Function(T?, T?, double) lerpFunction,
+  ) {
+    return StateProperty.lerp<ButtonStateProperty<T>, T, ButtonState>(a, b, t, lerpFunction);
+  }
+}
+```
+
+Now, using `ButtonStateProperty`, you can set, for example, the color for different button states:
+```dart
+final buttonColors = ButtonStateProperty<Color>(
+  Colors.black,
+  hovered: Colors.teal,
+  pressed: Colors.blue,
+);
+```
+
+To get the color value for a specific state, you need to use the resolve method:
+```dart
+final buttonHoverColor = buttonColors.resolve({ButtonState.hovered});
+```
+
+> Because such property classes are commonly used in theme extensions, `StateProperty` provides a static `lerp` method.
+
+
 ## Credits
 
 Copyright &copy; [Andy Chentsov](https://github.com/andyduke/)
