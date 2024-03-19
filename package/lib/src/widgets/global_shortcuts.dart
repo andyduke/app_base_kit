@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -59,6 +58,27 @@ class _GlobalShortcutsState extends State<GlobalShortcuts> {
               (event.logicalKey.keyLabel.length == 1 ? event.logicalKey.keyLabel.toLowerCase() : null);
           if (char == null) continue;
 
+          if (shortcut.key.accepts(event, HardwareKeyboard.instance)) {
+            // Find parent actions
+            final Action<Intent>? action = Actions.maybeFind<Intent>(
+              context,
+              intent: shortcut.value,
+            );
+            if (action != null) {
+              final (bool enabled, Object? invokeResult) = Actions.of(context).invokeActionIfEnabled(
+                action,
+                shortcut.value,
+                context,
+              );
+              if (enabled) {
+                action.toKeyEventResult(shortcut.value, invokeResult);
+                return true;
+              }
+            }
+          }
+
+          /* Pre 3.17.0-5.0.pre workaround
+             https://docs.flutter.dev/release/breaking-changes/shortcut-key-event-migration
           final rawEvent = RawKeyEvent.fromMessage({
             'type': 'keydown',
             'keymap': Platform.operatingSystem,
@@ -89,6 +109,7 @@ class _GlobalShortcutsState extends State<GlobalShortcuts> {
               }
             }
           }
+          */
         }
       }
     }
