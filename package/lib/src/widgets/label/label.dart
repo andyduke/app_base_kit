@@ -1,6 +1,6 @@
 import 'dart:io';
-
 import 'package:app_base_kit/src/widgets/global_shortcuts.dart';
+import 'package:app_base_kit/src/widgets/label/label_theme.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +13,7 @@ class Label extends StatelessWidget {
     this.text, {
     super.key,
     this.intent,
-    this.interactive = false,
+    this.interactive = true,
   });
 
   @override
@@ -23,14 +23,18 @@ class Label extends StatelessWidget {
     final parts = _splitText(text);
     if (parts.length < 2) return Text(text);
 
-    final TextStyle defaultStyle = DefaultTextStyle.of(context).style;
+    final TextStyle defaultStyle =
+        Theme.of(context).extension<LabelTheme>()?.textStyle ?? DefaultTextStyle.of(context).style;
+    final TextStyle acceleratorStyle = Theme.of(context).extension<LabelTheme>()?.acceleratorTextStyle ??
+        defaultStyle.copyWith(decoration: TextDecoration.underline);
+
     Widget body = RichText(
       text: TextSpan(
         children: parts.map((part) {
           if (part.startsWith('&')) {
             return TextSpan(
               text: part.substring(1),
-              style: defaultStyle.copyWith(decoration: TextDecoration.underline),
+              style: acceleratorStyle,
             );
           } else {
             return TextSpan(text: part, style: defaultStyle);

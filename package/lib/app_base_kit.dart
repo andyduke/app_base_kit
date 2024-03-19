@@ -19,7 +19,8 @@ export 'src/widgets/focus_builder.dart';
 export 'src/widgets/bottom_sheet_scaffold.dart';
 export 'src/widgets/triple_tap_detector.dart';
 export 'src/widgets/global_shortcuts.dart';
-export 'src/widgets/label.dart';
+export 'src/widgets/label/label_theme.dart';
+export 'src/widgets/label/label.dart';
 
 export 'src/ui/spacers/hspacer.dart';
 export 'src/ui/spacers/vspacer.dart';
