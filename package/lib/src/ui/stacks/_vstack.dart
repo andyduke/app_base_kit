@@ -1,0 +1,83 @@
+part of 'stacks.dart';
+
+/// A view that arranges its subviews in a vertical line.
+///
+/// It is a wrapper around `Column`, but adds the ability to control
+/// spacing between widgets in `Column`.
+///
+/// Additionally, `VStack` by default stretches widgets to full width,
+/// unlike `Column`.
+///
+/// See also:
+/// * [Spacing], for individual control of spacing;
+/// * [VStackDefaults], to set the default spacing and alignment values.
+///
+class VStack extends _Stack {
+  static const double defaultSpacing = 0;
+  static const XStackAlignment defaultAlignment = XStackAlignment.stretch;
+  static const bool defaultExpanded = false;
+
+  /// Creates a vertical array of widgets.
+  ///
+  /// It is a wrapper around `Column`, but adds the ability to control
+  /// spacing between widgets in `Column`.
+  ///
+  /// Additionally, `VStack` by default stretches widgets to full width,
+  /// unlike `Column`.
+  ///
+  /// See also:
+  /// * [Spacing], for individual control of spacing;
+  /// * [VStackDefaults], to set the default spacing and alignment values.
+  ///
+  const VStack({
+    super.key,
+    required super.children,
+    super.spacing,
+    super.alignment,
+    super.expanded,
+  });
+
+  const VStack.expand({
+    super.key,
+    required super.children,
+    super.spacing,
+    super.alignment,
+  }) : super(expanded: true);
+
+  @override
+  Widget buildLayout(BuildContext context, Iterable<Widget> children) {
+    final settings = Defaults.defaultsOf<VStackDefaults>(context, VStackDefaults.defaults);
+
+    final effectiveAlignment = alignment ?? settings.alignment;
+    final effectiveExpanded = expanded ?? settings.expanded;
+
+    return Column(
+      crossAxisAlignment: effectiveAlignment,
+      mainAxisSize: !effectiveExpanded ? MainAxisSize.min : MainAxisSize.max,
+      children: children.toList(growable: false),
+    );
+  }
+
+  @override
+  Widget? buildSpacer(BuildContext context, double? size) {
+    final settings = Defaults.defaultsOf<VStackDefaults>(context, VStackDefaults.defaults);
+
+    final effectiveSpacing = size ?? settings.spacing;
+
+    return (effectiveSpacing > 0) ? SizedBox(height: effectiveSpacing) : null;
+  }
+}
+
+class VStackDefaults implements DefaultsData {
+  static VStackDefaults defaults = VStackDefaults();
+
+  final double spacing;
+  final CrossAxisAlignment alignment;
+  final bool expanded;
+
+  VStackDefaults({
+    this.spacing = VStack.defaultSpacing,
+    this.alignment = VStack.defaultAlignment,
+    this.expanded = VStack.defaultExpanded,
+  });
+}
