@@ -1,4 +1,4 @@
-import 'package:app_base_kit/src/defaults.dart';
+import 'package:app_base_kit/src/utils/defaults.dart';
 import 'package:app_base_kit/src/widgets/action_button/action_button_settings.dart';
 import 'package:flutter/material.dart';
 

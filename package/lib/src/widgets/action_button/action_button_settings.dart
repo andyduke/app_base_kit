@@ -1,4 +1,4 @@
-import 'package:app_base_kit/src/defaults.dart';
+import 'package:app_base_kit/src/utils/defaults.dart';
 import 'package:flutter/material.dart';
 
 typedef ActionButtonBuilder = Widget Function(

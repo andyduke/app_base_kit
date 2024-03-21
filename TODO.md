@@ -9,6 +9,8 @@
 - [ ] CustomTabBar
 - [ ] ColorSet
 - [ ] StateProperty
+- [ ] AuthScaffold?
+- [ ] LabeledContent
 
 
 ## Documentation
@@ -17,9 +19,10 @@
 
 - [ ] GenericControl
 - [ ] Label
-- [ ] VStack/HStack
-- [ ] VSpacer/HSpacer
+- [ ] LabeledContent
+- [ ] VStack/HStack/Spacing
 - [ ] GlobalShortcuts
+- [ ] Result use cases
 
 
 ### General
