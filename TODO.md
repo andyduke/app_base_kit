@@ -10,7 +10,7 @@
 - [x] ColorSet
 - [x] StateProperty
 - [ ] AuthScaffold?
-- [ ] LabeledContent
+- [x] LabeledContent
 - [ ] AsyncSnapshot when extension https://gist.github.com/andyduke/aee33c192dcb8df58d8fbbb75459d6e0
 - [ ] DataValue (alternate to Result) https://gist.github.com/andyduke/9a351c71d80e3d8aa0e9aa68baa88c5b
 - [ ] EventBus https://gist.github.com/andyduke/52a8b9af1906904033961bda7265a844

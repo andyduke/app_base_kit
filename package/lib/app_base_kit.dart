@@ -26,6 +26,8 @@ export 'src/ui/spacers/hspacer.dart';
 export 'src/ui/spacers/vspacer.dart';
 export 'src/ui/stacks/stacks.dart';
 
+export 'src/ui/labeled_content.dart';
+
 export 'src/controls/generic_dropdown.dart';
 export 'src/controls/generic_control.dart';
 export 'src/controls/buttons/button.dart';
