@@ -14,8 +14,8 @@
 - [ ] AsyncSnapshot when extension https://gist.github.com/andyduke/aee33c192dcb8df58d8fbbb75459d6e0
 - [ ] DataValue (alternate to Result) https://gist.github.com/andyduke/9a351c71d80e3d8aa0e9aa68baa88c5b
 - [ ] EventBus https://gist.github.com/andyduke/52a8b9af1906904033961bda7265a844
-- [ ] CustomAppBar https://gist.github.com/andyduke/4ccaa7e5ffbce1cdb601214514c4b316
-- [ ] CustomBottomBar https://gist.github.com/andyduke/af66e5a836ab4d38af3746acb0577468
+- [ ] CustomAppBar https://gist.github.com/andyduke/3360de741a36a280a77e2da922c95883
+- [ ] CustomBottomBar https://gist.github.com/andyduke/3360de741a36a280a77e2da922c95883
 
 
 ## Documentation
