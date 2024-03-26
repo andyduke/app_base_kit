@@ -15,6 +15,7 @@ part of 'stacks.dart';
 class HStack extends _Stack {
   static const double defaultSpacing = 0;
   static const XStackAlignment defaultAlignment = XStackAlignment.start;
+  static const XStackCrossAlignment defaultCrossAlignment = XStackCrossAlignment.start;
   static const bool defaultExpanded = true;
 
   /// Creates a horizontal array of widgets.
@@ -34,6 +35,7 @@ class HStack extends _Stack {
     required super.children,
     super.spacing,
     super.alignment,
+    super.crossAlignment,
     super.expanded,
   });
 
@@ -42,6 +44,7 @@ class HStack extends _Stack {
     required super.children,
     super.spacing,
     super.alignment,
+    super.crossAlignment,
   }) : super(expanded: false);
 
   @override
@@ -49,10 +52,12 @@ class HStack extends _Stack {
     final settings = Defaults.defaultsOf<HStackDefaults>(context, HStackDefaults.defaults);
 
     final effectiveAlignment = alignment ?? settings.alignment;
+    final effectiveCrossAlignment = crossAlignment ?? settings.crossAlignment;
     final effectiveExpanded = expanded ?? settings.expanded;
 
     return Row(
-      crossAxisAlignment: effectiveAlignment,
+      mainAxisAlignment: effectiveAlignment,
+      crossAxisAlignment: effectiveCrossAlignment,
       mainAxisSize: !effectiveExpanded ? MainAxisSize.min : MainAxisSize.max,
       children: children.toList(growable: false),
     );
@@ -72,12 +77,14 @@ class HStackDefaults implements DefaultsData {
   static HStackDefaults defaults = HStackDefaults();
 
   final double spacing;
-  final CrossAxisAlignment alignment;
+  final XStackAlignment alignment;
+  final XStackCrossAlignment crossAlignment;
   final bool expanded;
 
   HStackDefaults({
     this.spacing = HStack.defaultSpacing,
     this.alignment = HStack.defaultAlignment,
+    this.crossAlignment = HStack.defaultCrossAlignment,
     this.expanded = HStack.defaultExpanded,
   });
 }

@@ -14,7 +14,8 @@ part of 'stacks.dart';
 ///
 class VStack extends _Stack {
   static const double defaultSpacing = 0;
-  static const XStackAlignment defaultAlignment = XStackAlignment.stretch;
+  static const XStackAlignment defaultAlignment = XStackAlignment.start;
+  static const XStackCrossAlignment defaultCrossAlignment = XStackCrossAlignment.stretch;
   static const bool defaultExpanded = false;
 
   /// Creates a vertical array of widgets.
@@ -34,6 +35,7 @@ class VStack extends _Stack {
     required super.children,
     super.spacing,
     super.alignment,
+    super.crossAlignment,
     super.expanded,
   });
 
@@ -42,6 +44,7 @@ class VStack extends _Stack {
     required super.children,
     super.spacing,
     super.alignment,
+    super.crossAlignment,
   }) : super(expanded: true);
 
   @override
@@ -49,10 +52,12 @@ class VStack extends _Stack {
     final settings = Defaults.defaultsOf<VStackDefaults>(context, VStackDefaults.defaults);
 
     final effectiveAlignment = alignment ?? settings.alignment;
+    final effectiveCrossAlignment = crossAlignment ?? settings.crossAlignment;
     final effectiveExpanded = expanded ?? settings.expanded;
 
     return Column(
-      crossAxisAlignment: effectiveAlignment,
+      mainAxisAlignment: effectiveAlignment,
+      crossAxisAlignment: effectiveCrossAlignment,
       mainAxisSize: !effectiveExpanded ? MainAxisSize.min : MainAxisSize.max,
       children: children.toList(growable: false),
     );
@@ -72,12 +77,14 @@ class VStackDefaults implements DefaultsData {
   static VStackDefaults defaults = VStackDefaults();
 
   final double spacing;
-  final CrossAxisAlignment alignment;
+  final XStackAlignment alignment;
+  final XStackCrossAlignment crossAlignment;
   final bool expanded;
 
   VStackDefaults({
     this.spacing = VStack.defaultSpacing,
     this.alignment = VStack.defaultAlignment,
+    this.crossAlignment = VStack.defaultCrossAlignment,
     this.expanded = VStack.defaultExpanded,
   });
 }

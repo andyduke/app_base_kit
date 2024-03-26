@@ -85,7 +85,7 @@ class _LabeledContentState extends State<LabeledContent> {
     final content = effectiveBuilder?.call(context, focusNode, widget.child) ?? widget.child ?? const SizedBox.shrink();
     final body = effectiveLayoutBuilder?.call(context, content, effectiveLabel, effectiveLabelSpacing) ??
         VStack(
-          alignment: CrossAxisAlignment.stretch,
+          crossAlignment: CrossAxisAlignment.stretch,
           spacing: effectiveLabelSpacing,
           children: [
             if (effectiveLabel != null) effectiveLabel,
@@ -105,7 +105,7 @@ class LabeledContentDefaults implements DefaultsData {
       return DefaultTextStyle.merge(style: labelStyle, child: label);
     },
     layoutBuilder: (context, child, label, labelSpacing) => VStack(
-      alignment: CrossAxisAlignment.stretch,
+      crossAlignment: CrossAxisAlignment.stretch,
       spacing: labelSpacing,
       children: [
         if (label != null) label,

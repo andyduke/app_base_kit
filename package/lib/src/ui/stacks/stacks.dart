@@ -5,13 +5,15 @@ part '_spacing.dart';
 part '_hstack.dart';
 part '_vstack.dart';
 
-typedef XStackAlignment = CrossAxisAlignment;
+typedef XStackAlignment = MainAxisAlignment;
+typedef XStackCrossAlignment = CrossAxisAlignment;
 
 /// Base class for implementing a vertical or horizontal stack.
 abstract class _Stack extends StatelessWidget {
   final List<Widget> children;
   final double? spacing;
   final XStackAlignment? alignment;
+  final XStackCrossAlignment? crossAlignment;
   final bool? expanded;
 
   const _Stack({
@@ -19,6 +21,7 @@ abstract class _Stack extends StatelessWidget {
     required this.children,
     this.spacing,
     this.alignment,
+    this.crossAlignment,
     this.expanded,
   });
 
