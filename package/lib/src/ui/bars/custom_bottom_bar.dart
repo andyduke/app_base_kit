@@ -10,10 +10,10 @@ import 'package:flutter/widgets.dart';
 /// ```dart
 /// Scaffold(
 ///   bottomNavigationBar: CustomBottomBar(
-///     decoration: const BoxDecoration(
+///     decoration: BoxDecoration(
 ///       color: Colors.amber,
 ///       boxShadow: [
-///         BoxShadow(offset: Offset(0, -1), blurRadius: 16, color: Colors.black.withOpacity(0.1)),
+///         BoxShadow(offset: const Offset(0, -1), blurRadius: 16, color: Colors.black.withOpacity(0.1)),
 ///       ],
 ///     ),
 ///     padding: const EdgeInsets.all(12.0),
@@ -25,18 +25,18 @@ import 'package:flutter/widgets.dart';
 /// ...but it is **better** to inherit the widget from [CustomBottomBar] and implement
 /// [buildLayout] and [getDecoration] methods:
 /// ```dart
-/// class FancyBottomBar extends CustomAppBar {
-///   FancyBottomBar({required super.child})
+/// class FancyBottomBar extends CustomBottomBar {
+///   const FancyBottomBar({super.key, required super.child})
 ///       : super(
 ///           padding: const EdgeInsets.all(12.0),
 ///         );
 ///
 ///   @override
-///   Widget buildLayout(BuildContext context, Widget child) {
+///   Widget buildLayout(BuildContext context, Widget? child) {
 ///     return Row(
 ///       mainAxisAlignment: MainAxisAlignment.spaceBetween,
 ///       children: [
-///         child,
+///         if (child != null) child,
 ///         const Text('!'),
 ///       ],
 ///     );
@@ -44,10 +44,10 @@ import 'package:flutter/widgets.dart';
 ///
 ///   @override
 ///   Decoration? getDecoration(BuildContext context, Decoration? decoration) {
-///     return const BoxDecoration(
+///     return BoxDecoration(
 ///       color: Theme.of(context).colorScheme.secondaryContainer,
 ///       boxShadow: [
-///         BoxShadow(offset: Offset(0, -1), blurRadius: 16, color: Colors.black.withOpacity(0.1)),
+///         BoxShadow(offset: const Offset(0, -1), blurRadius: 16, color: Colors.black.withOpacity(0.1)),
 ///       ],
 ///     );
 ///   }

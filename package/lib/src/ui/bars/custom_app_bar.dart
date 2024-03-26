@@ -32,14 +32,14 @@ import 'package:flutter/widgets.dart';
 /// class FancyAppBar extends CustomAppBar {
 ///   final Widget? title;
 ///
-///   FancyAppBar({this.title, required super.child})
+///   const FancyAppBar({super.key, this.title, required super.child})
 ///       : super(
 ///           height: 140,
 ///           padding: const EdgeInsets.all(12.0),
 ///         );
 ///
 ///   @override
-///   Widget buildLayout(BuildContext context, Widget child) {
+///   Widget buildLayout(BuildContext context, Widget? child) {
 ///     return Row(
 ///       mainAxisAlignment: MainAxisAlignment.start,
 ///       children: [
@@ -55,10 +55,10 @@ import 'package:flutter/widgets.dart';
 ///
 ///   @override
 ///   Decoration? getDecoration(BuildContext context, Decoration? decoration) {
-///     return const BoxDecoration(
+///     return BoxDecoration(
 ///       color: Colors.amber,
 ///       boxShadow: [
-///         BoxShadow(offset: Offset(0, 1), blurRadius: 16, color: Colors.black.withOpacity(0.1)),
+///         BoxShadow(offset: const Offset(0, 1), blurRadius: 16, color: Colors.black.withOpacity(0.1)),
 ///       ],
 ///     );
 ///   }
