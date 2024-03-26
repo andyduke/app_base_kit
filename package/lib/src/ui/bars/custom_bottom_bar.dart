@@ -78,7 +78,7 @@ class CustomBottomBar extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
 
   /// The [child] element contained in the bar.
-  final Widget child;
+  final Widget? child;
 
   /// Creates a custom bottom bar.
   ///
@@ -94,8 +94,8 @@ class CustomBottomBar extends StatelessWidget {
   });
 
   /// Creates a layout for the bottom bar, for example here you can add additional widgets.
-  Widget buildLayout(BuildContext context, Widget child) {
-    return child;
+  Widget buildLayout(BuildContext context, Widget? child) {
+    return child ?? const SizedBox.shrink();
   }
 
   /// Creates a [DecoratedBox] based on the [decoration] parameter and wraps it around [child].
