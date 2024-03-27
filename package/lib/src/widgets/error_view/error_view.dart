@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 
 typedef ErrorViewRefreshCallback = Future<void> Function();
 
+enum ErrorViewRefreshMode {
+  button,
+  pullToRefresh,
+}
+
 /// A widget that displays an error message, a detailed error
 /// message (for example, a stack trace) that expands by button,
 /// and an optional "Retry" button.
@@ -12,6 +17,7 @@ class ErrorView extends StatelessWidget {
   static const Icon defaultIcon = Icon(Icons.error);
   static const String defaultTitle = 'Something went wrong';
   static const String defaultDetailsButtonText = 'Details';
+  static const String defaultRefreshButtonText = 'Try again';
 
   static const EdgeInsetsGeometry defaultPadding = EdgeInsets.all(16.0);
 
@@ -21,6 +27,8 @@ class ErrorView extends StatelessWidget {
   final String detailsButtonText;
   final Object? error;
   final ErrorViewRefreshCallback? onRefresh;
+  final ErrorViewRefreshMode refreshMode;
+  final String refreshButtonText;
   final EdgeInsetsGeometry padding;
   final bool isDebugMode;
 
@@ -34,7 +42,9 @@ class ErrorView extends StatelessWidget {
     this.padding = defaultPadding,
     this.isDebugMode = kDebugMode,
   })  : assert(error != null),
-        onRefresh = null;
+        onRefresh = null,
+        refreshMode = ErrorViewRefreshMode.button,
+        refreshButtonText = defaultRefreshButtonText;
 
   const ErrorView.refreshable({
     super.key,
@@ -44,6 +54,8 @@ class ErrorView extends StatelessWidget {
     this.detailsButtonText = defaultDetailsButtonText,
     this.error,
     required this.onRefresh,
+    this.refreshMode = ErrorViewRefreshMode.button,
+    this.refreshButtonText = defaultRefreshButtonText,
     this.padding = defaultPadding,
     this.isDebugMode = kDebugMode,
   });
@@ -74,6 +86,15 @@ class ErrorView extends StatelessWidget {
             child: Text(subtitle!, style: theme?.subtitleTextStyle ?? TextStyle(fontSize: 16, color: foregroundColor)),
           ),
 
+        if ((onRefresh != null) && (refreshMode == ErrorViewRefreshMode.button))
+          Padding(
+            padding: const EdgeInsets.only(top: 16, bottom: 16),
+            child: FilledButton.tonal(
+              onPressed: onRefresh,
+              child: Text(refreshButtonText),
+            ),
+          ),
+
         // Error details
         if ((error != null) || isDebugMode)
           Padding(
@@ -92,7 +113,7 @@ class ErrorView extends StatelessWidget {
       ],
     );
 
-    if (onRefresh != null) {
+    if ((onRefresh != null) && (refreshMode == ErrorViewRefreshMode.pullToRefresh)) {
       final scrollableBody = body;
       body = RefreshIndicator(
         onRefresh: onRefresh!,
