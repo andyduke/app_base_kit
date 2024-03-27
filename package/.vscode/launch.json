@@ -4,12 +4,5 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-    {
-      "name": "Defaults test",
-      "request": "launch",
-      "type": "dart",
-      "cwd": "${workspaceFolder}/../_temp/defaults_test",
-      "program": "lib/main.dart",
-    },
   ]
 }
