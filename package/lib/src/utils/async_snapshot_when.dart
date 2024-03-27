@@ -48,7 +48,7 @@ extension AsyncSnapshotWhenCustom<T> on AsyncSnapshot<T> {
   /// If the snapshot contains data (**hasData is true**),
   /// then the [data] callback is used to create the resulting widget.
   ///
-  /// If [connectionState] is **done** and the snapshot contains an error (**hasError is true**),
+  /// If the snapshot contains an error (**hasError is true**),
   /// then the [error] callback is used to create the resulting widget.
   ///
   /// Otherwise, the [loading] callback is used to create the resulting widget.
@@ -63,8 +63,7 @@ extension AsyncSnapshotWhenCustom<T> on AsyncSnapshot<T> {
   }) {
     return switch (this) {
       AsyncSnapshot(hasData: true, data: T d) => data(d),
-      AsyncSnapshot(connectionState: ConnectionState.done, hasError: true, error: Object e, stackTrace: StackTrace s) =>
-        error(e, s),
+      AsyncSnapshot(hasError: true, error: Object e, stackTrace: StackTrace s) => error(e, s),
       _ => loading(),
     };
   }

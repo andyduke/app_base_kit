@@ -34,6 +34,7 @@
 - [ ] Result use cases https://gist.github.com/andyduke/b06a6b71203972a5332e6c2f7724bb93
 - [ ] CustomAppBar
 - [ ] CustomBottomBar
+- [ ] AsyncSnapshot when extension
 
 
 ### General
