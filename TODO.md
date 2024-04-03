@@ -20,6 +20,8 @@
 
 - [ ] GenericDropdown refactor with OverlayPortal https://gist.github.com/andyduke/9124e2a79bde9c1ad48e82487e0c9a86
 
+- [ ] DateTime.format extension
+
 
 ## Documentation
 

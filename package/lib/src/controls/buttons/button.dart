@@ -13,7 +13,7 @@ enum ButtonState {
 /// General button widget, without UI, but with state management and processing of focus, click, hover, etc.
 abstract class Button extends StatefulWidget {
   final Widget child;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   final bool enabled;
 
@@ -90,7 +90,7 @@ class _ButtonState extends State<Button> {
     }
   }
 
-  bool get _enabled => !_states.contains(ButtonState.disabled);
+  bool get _enabled => !_states.contains(ButtonState.disabled) && (widget.onPressed != null);
 
   void _handleDisabledUpdate(bool enabled, {bool silent = false}) {
     if (enabled) {
@@ -166,7 +166,7 @@ class _ButtonState extends State<Button> {
   void _handlePressedUp() {
     if (_enabled) {
       _handleTapFeedback();
-      widget.onPressed();
+      widget.onPressed?.call();
 
       // Delay the call to `_handlePressedUpdate` to simulate a pressed delay.
       _activationTimer = Timer(_pressedDuration ~/ 2, () {
@@ -192,7 +192,7 @@ class _ButtonState extends State<Button> {
       _handlePressedUpdate(true);
 
       _handleTapFeedback();
-      widget.onPressed();
+      widget.onPressed?.call();
 
       // Delay the call to `_handlePressedUpdate` to simulate a pressed delay.
       _activationTimer = Timer(_pressedDuration, () {
@@ -227,7 +227,11 @@ class _ButtonState extends State<Button> {
               _handlePressedUp();
             },
             onTapCancel: _handlePressCancelled,
-            child: widget.builder(context, _states, widget.child),
+            child: widget.builder(
+              context,
+              _states..addAll((widget.onPressed == null) ? {ButtonState.disabled} : <ButtonState>{}),
+              widget.child,
+            ),
           ),
         ),
       ),
