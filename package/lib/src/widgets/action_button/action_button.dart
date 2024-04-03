@@ -150,6 +150,10 @@ class _ActionButtonCustom extends StatelessWidget implements ActionButton {
   Widget build(BuildContext context) {
     final settings = Defaults.defaultsOf<ActionButtonDefaults>(context, ActionButtonDefaults.defaults);
 
+    final indicatorBuilder = settings.indicatorBuilder ?? ActionButtonDefaults.defaults.indicatorBuilder;
+    final primaryBuilder = settings.primaryBuilder ?? ActionButtonDefaults.defaults.primaryBuilder;
+    final builder = settings.builder ?? ActionButtonDefaults.defaults.builder;
+
     final body = Stack(
       children: [
         // Child
@@ -164,15 +168,15 @@ class _ActionButtonCustom extends StatelessWidget implements ActionButton {
             widthFactor: 1,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: settings.indicatorBuilder!(context, 16),
+              child: indicatorBuilder!(context, 16),
             ),
           ),
       ],
     );
 
     return primary
-        ? settings.primaryBuilder!(context, body, enabled ? onPressed : null, inProgress)
-        : settings.builder!(context, body, enabled ? onPressed : null, inProgress);
+        ? primaryBuilder!(context, body, enabled ? onPressed : null, inProgress)
+        : builder!(context, body, enabled ? onPressed : null, inProgress);
   }
 }
 

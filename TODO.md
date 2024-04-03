@@ -14,7 +14,7 @@
 - [x] CustomAppBar https://gist.github.com/andyduke/3360de741a36a280a77e2da922c95883
 - [x] CustomBottomBar https://gist.github.com/andyduke/3360de741a36a280a77e2da922c95883
 - [x] AsyncSnapshot when extension https://gist.github.com/andyduke/aee33c192dcb8df58d8fbbb75459d6e0
-- [ ] EventBus https://gist.github.com/andyduke/52a8b9af1906904033961bda7265a844
+- [ ] EventBus https://gist.github.com/andyduke/d93f24815cfee30dbb8861b75ee1dbc0 https://github.com/marcojakob/dart-event-bus/blob/master/lib/event_bus.dart
 - [ ] ListViewBuilder
 - [ ] DataValue (alternate to Result?) https://gist.github.com/andyduke/06c7a240c8360201b91e17e11e3ccdb9
 
