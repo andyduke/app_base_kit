@@ -5,7 +5,7 @@
 - [x] ActionButton refactor - rename current default constructor to `.custom(...)`, add new default constructor with `Future onAction` parameter
   - [x] Default constructor: `ActionButton(onAction: Future Function(), ...)`
   - [x] Custom constructor: `ActionButton.custom(onPressed: Function, inProgress: bool)`
-- [ ] ButtonsGroup https://gist.github.com/andyduke/718c503e4d614bb61bb8cc6e93f033d9
+- [x] ButtonsGroup https://gist.github.com/andyduke/718c503e4d614bb61bb8cc6e93f033d9
 - [ ] CustomTabBar
 - [x] ColorSet
 - [x] StateProperty
@@ -29,6 +29,7 @@
 
 - [ ] GenericControl
 - [ ] GenericDropdown
+- [ ] ButtonsGroup
 - [ ] Label
 - [ ] LabeledContent
 - [ ] VStack/HStack/Spacing

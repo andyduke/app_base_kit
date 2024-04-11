@@ -35,6 +35,7 @@ export 'src/ui/bars/custom_bottom_bar.dart';
 export 'src/controls/generic_dropdown.dart';
 export 'src/controls/generic_control.dart';
 export 'src/controls/buttons/button.dart';
+export 'src/controls/buttons/buttons_group.dart';
 
 export 'src/router/modal_bottom_sheet_page.dart';
 
