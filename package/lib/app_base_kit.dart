@@ -8,6 +8,7 @@ export 'src/offline/offline_builder.dart';
 
 export 'src/utils/color_set.dart';
 export 'src/utils/state_property.dart';
+export 'src/utils/value_property.dart';
 export 'src/utils/async_snapshot_when.dart';
 
 export 'src/widgets/expansion_details.dart';

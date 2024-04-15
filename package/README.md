@@ -311,6 +311,11 @@ final buttonHoverColor = buttonColors.resolve({ButtonState.hovered});
 > Because such property classes are commonly used in theme extensions, `StateProperty` provides a static `lerp` method.
 
 
+### ValueProperty
+
+Like [`StateProperty`](#stateproperty), but to resolve a single value instead of a set.
+
+
 ## Credits
 
 Copyright &copy; [Andy Chentsov](https://github.com/andyduke/)
