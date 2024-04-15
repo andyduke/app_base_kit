@@ -5,6 +5,7 @@ abstract class StateProperty<T, S> {
   /// Returns a value of type `T` that depends on [states].
   T resolve(Set<S> states);
 
+  // TODO: Replace static lerp with lerp example (see ValueProperty)
   /// Linearly interpolate between two `S`.
   static P? lerp<P extends StateProperty<T, S>, T, S>(
     P? a,
@@ -20,6 +21,7 @@ abstract class StateProperty<T, S> {
   }
 }
 
+// TODO: Remove this
 class _StateLerpProperties<P extends StateProperty<T, S>, T, S> implements StateProperty<T?, S> {
   const _StateLerpProperties(this.a, this.b, this.t, this.lerpFunction);
 
