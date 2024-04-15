@@ -5,32 +5,35 @@ abstract class ValueProperty<T, S> {
   T resolve(S value);
 
   /// Linearly interpolate between two `S`.
-  static P? lerp<P extends ValueProperty<T, S>, T, S>(
-    P? a,
-    P? b,
+  static ValueProperty<T, S>? lerp<T, S>(
+    ValueProperty<T, S>? a,
+    ValueProperty<T, S>? b,
     double t,
     T? Function(T?, T?, double) lerpFunction,
+    ValueProperty<T, S> defaultValue,
   ) {
     // Avoid creating a _ValueLerpProperties object for a common case.
     if (a == null && b == null) {
       return null;
     }
-    return _ValueLerpProperties<P, T, S>(a, b, t, lerpFunction) as P;
+    // TODO: Fix cast issue
+    return _ValueLerpProperties<T, S>(a, b, t, lerpFunction, defaultValue);
   }
 }
 
-class _ValueLerpProperties<P extends ValueProperty<T, S>, T, S> implements ValueProperty<T?, S> {
-  const _ValueLerpProperties(this.a, this.b, this.t, this.lerpFunction);
+class _ValueLerpProperties<T, S> implements ValueProperty<T, S> {
+  const _ValueLerpProperties(this.a, this.b, this.t, this.lerpFunction, this.defaultValue);
 
-  final P? a;
-  final P? b;
+  final ValueProperty<T, S>? a;
+  final ValueProperty<T, S>? b;
   final double t;
   final T? Function(T?, T?, double) lerpFunction;
+  final ValueProperty<T, S> defaultValue;
 
   @override
-  T? resolve(S value) {
+  T resolve(S value) {
     final T? resolvedA = a?.resolve(value);
     final T? resolvedB = b?.resolve(value);
-    return lerpFunction(resolvedA, resolvedB, t);
+    return lerpFunction(resolvedA, resolvedB, t) ?? defaultValue.resolve(value);
   }
 }
