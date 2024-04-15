@@ -32,6 +32,8 @@ export 'src/ui/labeled_content.dart';
 export 'src/ui/bars/custom_app_bar.dart';
 export 'src/ui/bars/custom_bottom_bar.dart';
 
+export 'src/ui/tap_padding.dart';
+
 export 'src/controls/generic_dropdown.dart';
 export 'src/controls/generic_control.dart';
 export 'src/controls/buttons/button.dart';
