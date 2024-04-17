@@ -72,6 +72,9 @@ class CustomBottomBar extends StatelessWidget {
   /// * [decoration], for automatically determining the background color of the *system navigation bar*.
   final Color? backgroundColor;
 
+  /// Should the background color extend to the system navigation bar?
+  final bool autoColorSystemNavigationBar;
+
   /// Empty space to inscribe inside the decoration. The child, if any, is placed inside this padding.
   ///
   /// This padding is in addition to any padding inherent in the [decoration]; see [Decoration.padding].
@@ -87,6 +90,7 @@ class CustomBottomBar extends StatelessWidget {
   ///
   const CustomBottomBar({
     super.key,
+    this.autoColorSystemNavigationBar = true,
     this.backgroundColor,
     this.decoration,
     this.padding,
@@ -132,15 +136,17 @@ class CustomBottomBar extends StatelessWidget {
 
     body = buildDecoration(context, body, barDecoration);
 
-    final barColor = backgroundColor ?? _decorationColor(barDecoration);
-    if (barColor != null) {
-      body = AnnotatedRegion(
-        value: SystemUiOverlayStyle(
-          systemNavigationBarColor: barColor,
-          systemNavigationBarIconBrightness: (barColor.computeLuminance() > 0.5) ? Brightness.dark : Brightness.light,
-        ),
-        child: body,
-      );
+    if (autoColorSystemNavigationBar) {
+      final barColor = backgroundColor ?? _decorationColor(barDecoration);
+      if (barColor != null) {
+        body = AnnotatedRegion(
+          value: SystemUiOverlayStyle(
+            systemNavigationBarColor: barColor,
+            systemNavigationBarIconBrightness: (barColor.computeLuminance() > 0.5) ? Brightness.dark : Brightness.light,
+          ),
+          child: body,
+        );
+      }
     }
 
     return body;
