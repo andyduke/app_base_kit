@@ -69,6 +69,7 @@ class ErrorView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
+        // Icon
         Padding(
           padding: const EdgeInsets.only(bottom: 16),
           child: IconTheme.merge(
@@ -76,16 +77,25 @@ class ErrorView extends StatelessWidget {
             child: icon ?? const Text('😞', style: TextStyle(fontSize: 32), textAlign: TextAlign.center),
           ),
         ),
-        Text(title,
-            style:
-                theme?.titleTextStyle ?? TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: foregroundColor)),
 
-        if (subtitle != null)
+        // Title
+        Text(
+          title,
+          style: theme?.titleTextStyle ?? TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: foregroundColor),
+        ),
+
+        // Subtitle
+        if (subtitle != null && subtitle!.isNotEmpty)
           Padding(
             padding: const EdgeInsets.only(top: 8),
-            child: Text(subtitle!, style: theme?.subtitleTextStyle ?? TextStyle(fontSize: 16, color: foregroundColor)),
+            child: Text(
+              subtitle!,
+              style: theme?.subtitleTextStyle ?? TextStyle(fontSize: 16, color: foregroundColor),
+              textAlign: TextAlign.center,
+            ),
           ),
 
+        // Refresh button
         if ((onRefresh != null) && (refreshMode == ErrorViewRefreshMode.button))
           Padding(
             padding: const EdgeInsets.only(top: 16, bottom: 16),
