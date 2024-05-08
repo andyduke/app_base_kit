@@ -6,9 +6,11 @@ class OfflineTracker with ChangeNotifier implements ValueListenable<bool> {
   final Completer _ready = Completer();
   Future get readyFuture => _ready.future;
 
-  ConnectivityResult? status;
+  // ConnectivityResult? status;
+  List<ConnectivityResult>? status;
 
-  StreamSubscription<ConnectivityResult>? _subscription;
+  // StreamSubscription<ConnectivityResult>? _subscription;
+  StreamSubscription<List<ConnectivityResult>>? _subscription;
   bool _isOffline = false;
 
   bool get isOffline => _isOffline;
@@ -22,9 +24,16 @@ class OfflineTracker with ChangeNotifier implements ValueListenable<bool> {
   }
 
   Future<void> _checkConnectivity() async {
+    /*
     final ConnectivityResult connectivity = await (Connectivity().checkConnectivity());
     status = connectivity;
     _isOffline = (connectivity == ConnectivityResult.none);
+    */
+
+    final List<ConnectivityResult> connectivity = await (Connectivity().checkConnectivity());
+    status = connectivity;
+    _isOffline = connectivity.every((s) => s == ConnectivityResult.none);
+
     _ready.complete();
     notifyListeners();
   }
@@ -45,10 +54,22 @@ class OfflineTracker with ChangeNotifier implements ValueListenable<bool> {
     }
   }
 
+  /*
   void _connectivityChanged(ConnectivityResult result) {
     if (((status == ConnectivityResult.none) && (result != ConnectivityResult.none)) ||
         ((status != ConnectivityResult.none) && (result == ConnectivityResult.none))) {
       _isOffline = (result == ConnectivityResult.none);
+      notifyListeners();
+    }
+
+    status = result;
+  }
+  */
+
+  void _connectivityChanged(List<ConnectivityResult> result) {
+    final newValue = result.every((s) => s == ConnectivityResult.none);
+    if (newValue != _isOffline) {
+      _isOffline = newValue;
       notifyListeners();
     }
 
