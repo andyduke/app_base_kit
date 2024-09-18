@@ -34,6 +34,8 @@
 /// )!,
 /// ```
 abstract class ValueProperty<T, S> {
+  const ValueProperty();
+
   /// Returns a value of type `T` that depends on [value].
   T resolve(S value);
 }
