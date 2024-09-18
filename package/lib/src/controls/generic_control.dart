@@ -15,6 +15,8 @@ abstract class GenericControl extends StatefulWidget {
 
   final bool enabled;
 
+  final MouseCursor cursor;
+
   /// True if this widget will be selected as the initial focus when no other node in its scope is currently focused.
   final bool autofocus;
 
@@ -29,6 +31,7 @@ abstract class GenericControl extends StatefulWidget {
     this.builder,
     this.child,
     this.enabled = true,
+    this.cursor = MouseCursor.defer,
     this.autofocus = false,
     this.focusNode,
     this.canRequestFocus = false,
@@ -114,7 +117,7 @@ class _ControlState extends State<GenericControl> {
         onExit: (event) {
           _handleHoverUpdate(false);
         },
-        cursor: _enabled ? MouseCursor.defer : SystemMouseCursors.basic,
+        cursor: _enabled ? widget.cursor : SystemMouseCursors.basic,
         child: widget.controlBuilder(context, _states, widget.child),
       ),
     );
