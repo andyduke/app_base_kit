@@ -37,6 +37,7 @@ class HStack extends _Stack {
     super.alignment,
     super.crossAlignment,
     super.expanded,
+    this.textBaseline,
   });
 
   const HStack.shrink({
@@ -45,7 +46,10 @@ class HStack extends _Stack {
     super.spacing,
     super.alignment,
     super.crossAlignment,
+    this.textBaseline,
   }) : super(expanded: false);
+
+  final TextBaseline? textBaseline;
 
   @override
   Widget buildLayout(BuildContext context, Iterable<Widget> children) {
@@ -54,11 +58,13 @@ class HStack extends _Stack {
     final effectiveAlignment = alignment ?? settings.alignment;
     final effectiveCrossAlignment = crossAlignment ?? settings.crossAlignment;
     final effectiveExpanded = expanded ?? settings.expanded;
+    final effectiveTextBaseline = textBaseline ?? settings.textBaseline;
 
     return Row(
       mainAxisAlignment: effectiveAlignment,
       crossAxisAlignment: effectiveCrossAlignment,
       mainAxisSize: !effectiveExpanded ? MainAxisSize.min : MainAxisSize.max,
+      textBaseline: effectiveTextBaseline,
       children: children.toList(growable: false),
     );
   }
@@ -80,11 +86,13 @@ class HStackDefaults implements DefaultsData {
   final XStackAlignment alignment;
   final XStackCrossAlignment crossAlignment;
   final bool expanded;
+  final TextBaseline? textBaseline;
 
   HStackDefaults({
     this.spacing = HStack.defaultSpacing,
     this.alignment = HStack.defaultAlignment,
     this.crossAlignment = HStack.defaultCrossAlignment,
     this.expanded = HStack.defaultExpanded,
+    this.textBaseline,
   });
 }
