@@ -10,6 +10,7 @@ export 'src/utils/color_set.dart';
 export 'src/utils/state_property.dart';
 export 'src/utils/value_property.dart';
 export 'src/utils/async_snapshot_when.dart';
+export 'src/utils/event_bus.dart';
 
 export 'src/widgets/expansion_details.dart';
 
