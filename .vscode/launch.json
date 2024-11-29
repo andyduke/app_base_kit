@@ -1,0 +1,54 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "fetch_view_test",
+      "cwd": "_playground/fetch_view_test",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "defaults_test",
+      "cwd": "_playground/defaults_test",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "defaults_test (profile mode)",
+      "cwd": "_playground/defaults_test",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "defaults_test (release mode)",
+      "cwd": "_playground/defaults_test",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    },
+    {
+      "name": "helper_widgets_proto",
+      "cwd": "_playground/helper_widgets_proto",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
+      "name": "helper_widgets_proto (profile mode)",
+      "cwd": "_playground/helper_widgets_proto",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "helper_widgets_proto (release mode)",
+      "cwd": "_playground/helper_widgets_proto",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    }
+  ]
+}

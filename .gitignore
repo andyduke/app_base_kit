@@ -1,2 +1,4 @@
 _temp/
 app_base_kit.code-workspace
+.flutter-plugins
+.flutter-plugins-dependencies
