@@ -28,7 +28,7 @@ mixin class EventBus {
   final StreamController _streamController = StreamController.broadcast();
 
   /// Subscribe to an event of a certain type, returns a stream
-  Stream<T> on<T extends Event>(Type? eventType) {
+  Stream<T> on<T extends Event>([Type? eventType]) {
     if (eventType == null) {
       assert(T != dynamic,
           'When using "on", you must specify the event type in the generic parameter or in the method parameter.');
