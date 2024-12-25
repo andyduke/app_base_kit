@@ -1,5 +1,10 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 
+/// An abstract event class. Any events dispatched via EventBus must inherit from this class.
+///
+/// See also:
+/// - [EventBus], which allows you to dispatch events to descendants of this class.
 abstract class Event<T> {
   const Event(this.data);
 
@@ -15,10 +20,14 @@ abstract class Event<T> {
   String toString() => '$runtimeType($data)';
 }
 
-class EventBus {
+/// An event bus that makes it possible to subscribe and dispatch events of a certain type.
+///
+/// Can be used as a standalone **class** or as a **mixin** to another class,
+/// such as a controller.
+mixin class EventBus {
   final StreamController _streamController = StreamController.broadcast();
 
-  /// Метод, возвращает стрим при изменении события
+  /// Subscribe to an event of a certain type, returns a stream
   Stream<T> on<T extends Event>(Type? eventType) {
     if (eventType == null) {
       assert(T != dynamic,
@@ -29,15 +38,12 @@ class EventBus {
     }
   }
 
-  /// Добавление события в шину
+  /// Dispatch event to event stream
   void dispatchEvent(Event event) {
     _streamController.add(event);
   }
 
-  /// Закрытие контроллера. В основном, данный метод не нужен.
-  /// Так как поток шины событий, должен работать пока работает
-  /// приложение. Так же, перед закрытием лучше проверить наличие
-  /// подписчиков.
+  @mustCallSuper
   void dispose() {
     _streamController.close();
   }
