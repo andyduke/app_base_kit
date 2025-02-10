@@ -9,7 +9,7 @@ class TestScreen extends StatefulWidget {
 }
 
 class _TestScreenState extends State<TestScreen> {
-  final controller = FetchViewController(
+  final controller = FetchViewController<String>(
     onFetch: (isReload) async {
       // return Future.delayed(const Duration(seconds: 1), () {
       //   throw Exception('Test');

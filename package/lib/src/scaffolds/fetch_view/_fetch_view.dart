@@ -50,7 +50,6 @@ class FetchView<T> extends StatefulWidget {
     StackTrace? stackTrace,
     void Function() tryAgain,
   ) {
-    // TODO: Wrap with SingleChildScrollView if Scrollable.maybeOf() is null
     return Center(
       child: ErrorView(
         error: '$error\n\n$stackTrace',

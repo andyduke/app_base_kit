@@ -148,10 +148,17 @@ class ErrorView extends StatelessWidget {
         ),
       );
     } else {
-      body = Padding(
-        padding: padding,
-        child: body,
-      );
+      if (Scrollable.maybeOf(context) == null) {
+        body = SingleChildScrollView(
+          padding: padding,
+          child: body,
+        );
+      } else {
+        body = Padding(
+          padding: padding,
+          child: body,
+        );
+      }
     }
 
     return body;
