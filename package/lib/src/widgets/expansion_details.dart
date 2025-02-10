@@ -4,6 +4,12 @@ import 'package:flutter/material.dart';
 ///
 /// Can be used to display error message and stack trace as detailed content.
 class ExpansionDetails extends StatefulWidget {
+  static const defaultChildAlignment = MainAxisAlignment.center;
+  static const defaultDetailsPadding = EdgeInsets.symmetric(vertical: 16);
+  static const defaultDetailsAlignment = Alignment.center;
+  static const defaultExpandConstraint = BoxConstraints(maxWidth: 240);
+  static const defaultExpandDuration = Duration(milliseconds: 200);
+
   final Widget child;
   final Color? childCollapsedColor;
   final Color? childExpandedColor;
@@ -14,6 +20,7 @@ class ExpansionDetails extends StatefulWidget {
   final Widget? leading;
   final Widget? trailing;
   final bool maintainState;
+  final BoxConstraints? expandConstraint;
   final Duration expandDuration;
   final bool initiallyExpanded;
   final bool forceExpand;
@@ -24,14 +31,15 @@ class ExpansionDetails extends StatefulWidget {
     required this.child,
     this.childCollapsedColor,
     this.childExpandedColor,
-    this.childAlignment = MainAxisAlignment.center,
+    this.childAlignment = defaultChildAlignment,
     required this.details,
-    this.detailsPadding = const EdgeInsets.symmetric(vertical: 16),
-    this.detailsAlignment = Alignment.center,
+    this.detailsPadding = defaultDetailsPadding,
+    this.detailsAlignment = defaultDetailsAlignment,
     this.leading,
     this.trailing,
     this.maintainState = false,
-    this.expandDuration = const Duration(milliseconds: 200),
+    this.expandConstraint = defaultExpandConstraint,
+    this.expandDuration = defaultExpandDuration,
     this.initiallyExpanded = false,
     this.forceExpand = false,
     this.onExpansionChanged,
@@ -126,31 +134,34 @@ class ExpansionDetailsState extends State<ExpansionDetails> with SingleTickerPro
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           // Details button
-          InkWell(
-            borderRadius: BorderRadius.circular(4),
-            onTap: _handleTap,
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(minHeight: 48),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                child: DefaultTextStyle.merge(
-                  style: TextStyle(color: _headerColor.value),
-                  child: Row(
-                    mainAxisAlignment: widget.childAlignment,
-                    children: [
-                      // Leading
-                      if (widget.leading != null) widget.leading!,
+          ConstrainedBox(
+            constraints: widget.expandConstraint ?? const BoxConstraints(),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(4),
+              onTap: _handleTap,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(minHeight: 48),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  child: DefaultTextStyle.merge(
+                    style: TextStyle(color: _headerColor.value),
+                    child: Row(
+                      mainAxisAlignment: widget.childAlignment,
+                      children: [
+                        // Leading
+                        if (widget.leading != null) widget.leading!,
 
-                      // Child
-                      widget.child,
+                        // Child
+                        widget.child,
 
-                      // Trailing
-                      widget.trailing ??
-                          RotationTransition(
-                            turns: _iconTurns,
-                            child: Icon(Icons.expand_more, color: _headerColor.value),
-                          ),
-                    ],
+                        // Trailing
+                        widget.trailing ??
+                            RotationTransition(
+                              turns: _iconTurns,
+                              child: Icon(Icons.expand_more, color: _headerColor.value),
+                            ),
+                      ],
+                    ),
                   ),
                 ),
               ),
