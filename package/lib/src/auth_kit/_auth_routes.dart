@@ -22,14 +22,19 @@ abstract class AuthRoute<T extends AuthRoute<dynamic>> {
   GoRoute build(AuthRouter router);
 }
 
+/// Definition of the starting route.
 class StartRoute extends AuthRoute<StartRoute> {
   static const defaultName = 'start';
-  static const defaultPath = '/start';
 
+  /// Creates a start route definition.
+  ///
+  /// If the [path] parameter is not specified, `"/$name"` is used by default.
   const StartRoute({
-    super.path = defaultPath,
     super.name = defaultName,
-  });
+    String? path,
+  }) : super(
+          path: path ?? '/$name',
+        );
 
   @override
   GoRoute build(AuthRouter router) {
@@ -52,7 +57,6 @@ class StartRoute extends AuthRoute<StartRoute> {
 
 class LoadingRoute extends AuthRoute<LoadingRoute> {
   static const defaultName = 'loading';
-  static const defaultPath = '/loading';
 
   /// A custom builder for this route.
   final GoRouterWidgetBuilder? builder;
@@ -61,11 +65,14 @@ class LoadingRoute extends AuthRoute<LoadingRoute> {
   final GoRouterPageBuilder? pageBuilder;
 
   const LoadingRoute({
-    super.path = defaultPath,
     super.name = defaultName,
+    String? path,
     this.builder,
     this.pageBuilder,
-  }) : assert(pageBuilder != null || builder != null, 'builder, or pageBuilder must be provided');
+  })  : assert(pageBuilder != null || builder != null, 'builder, or pageBuilder must be provided'),
+        super(
+          path: path ?? '/$name',
+        );
 
   @override
   GoRoute build(AuthRouter router) {
@@ -80,7 +87,6 @@ class LoadingRoute extends AuthRoute<LoadingRoute> {
 
 class LoginRoute extends AuthRoute<LoginRoute> {
   static const defaultName = 'login';
-  static const defaultPath = '/login';
 
   /// A custom builder for this route.
   final GoRouterWidgetBuilder? builder;
@@ -89,11 +95,14 @@ class LoginRoute extends AuthRoute<LoginRoute> {
   final GoRouterPageBuilder? pageBuilder;
 
   const LoginRoute({
-    super.path = defaultPath,
     super.name = defaultName,
+    String? path,
     this.builder,
     this.pageBuilder,
-  }) : assert(pageBuilder != null || builder != null, 'builder, or pageBuilder must be provided');
+  })  : assert(pageBuilder != null || builder != null, 'builder, or pageBuilder must be provided'),
+        super(
+          path: path ?? '/$name',
+        );
 
   @override
   GoRoute build(AuthRouter router) {
@@ -108,12 +117,13 @@ class LoginRoute extends AuthRoute<LoginRoute> {
 
 class LoggedInRoute extends AuthRoute<LoggedInRoute> {
   static const defaultName = 'logged-in';
-  static const defaultPath = '/logged-in';
 
   const LoggedInRoute({
-    super.path = defaultPath,
     super.name = defaultName,
-  });
+    String? path,
+  }) : super(
+          path: path ?? '/$name',
+        );
 
   @override
   GoRoute build(AuthRouter router) {

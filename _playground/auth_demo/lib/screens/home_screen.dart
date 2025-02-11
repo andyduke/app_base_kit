@@ -44,6 +44,17 @@ class HomeScreen extends StatelessWidget {
               },
               child: const Text('Favorites'),
             ),
+
+            //
+            const SizedBox(height: 24),
+
+            //
+            FilledButton.tonal(
+              onPressed: () {
+                context.goNamed(AppRoutes.help.name);
+              },
+              child: const Text('Help'),
+            ),
           ],
         ),
       ),

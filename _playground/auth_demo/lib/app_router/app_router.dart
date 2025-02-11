@@ -1,5 +1,6 @@
 import 'package:app_base_kit/app_base_kit.dart';
 import 'package:auth_demo/screens/favorites_screen.dart';
+import 'package:auth_demo/screens/help_screen.dart';
 import 'package:auth_demo/screens/home_screen.dart';
 import 'package:auth_demo/screens/loading_screen.dart';
 import 'package:auth_demo/screens/login_screen.dart';
@@ -9,14 +10,15 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 enum AppRoutes {
-  /*
   start('start'),
+  /*
   loading('loading'),
   */
   protected('protected', '/user'),
   home('home'),
   favorites('favorites'),
   settings('settings'),
+  help('help'),
   /*
   login('login'),
   loggedIn('logged-in', '/loggedIn'),
@@ -42,6 +44,9 @@ abstract class AppRouter {
       debugLogDiagnostics: kDebugMode,
       authState: authState,
       authRoutes: {
+        StartRoute(
+          name: AppRoutes.start.name,
+        ),
         LoadingRoute(
           builder: (context, state) => const LoadingScreen(),
         ),
@@ -49,6 +54,13 @@ abstract class AppRouter {
           builder: (context, state) => const LoginScreen(),
         ),
       },
+      routes: [
+        GoRoute(
+          name: AppRoutes.help.name,
+          path: AppRoutes.help.path,
+          builder: (context, state) => const HelpScreen(),
+        ),
+      ],
       protectedRoutes: [
         GoRouteGroup(
           name: AppRoutes.protected.name,
