@@ -22,10 +22,10 @@ abstract class AuthRedirect extends GoRedirectBase {
 
   AuthRedirect({
     required this.loginRouteName,
-    required this.protectedRouteNames,
+    required Iterable<String> protectedRouteNames,
     required this.loggedInRouteName,
     required this.logoutRouteName,
-  });
+  }) : protectedRouteNames = List.from(protectedRouteNames);
 
   bool isLogged(BuildContext context);
 
