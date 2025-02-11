@@ -1,7 +1,7 @@
 name: app_base_kit
 description: A basic set of widgets and functions for creating a Flutter application.
 publish_to: none
-version: 1.5.0
+version: 1.6.0
 homepage: https://github.com/andyduke/app_base_kit
 
 environment:
@@ -16,6 +16,7 @@ dependencies:
   connectivity_plus: ^6.0.3
   visibility_detector: ^0.4.0+2
   provider: ^6.0.5
+  go_router: ^14.8.0
 
 dev_dependencies:
   flutter_test:
