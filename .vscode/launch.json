@@ -5,6 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "auth_demo",
+      "cwd": "_playground/auth_demo",
+      "request": "launch",
+      "type": "dart"
+    },
+    {
       "name": "fetch_view_test",
       "cwd": "_playground/fetch_view_test",
       "request": "launch",
