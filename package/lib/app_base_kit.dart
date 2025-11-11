@@ -26,6 +26,7 @@ export 'src/widgets/triple_tap_detector.dart';
 export 'src/widgets/global_shortcuts.dart';
 export 'src/widgets/label/label_theme.dart';
 export 'src/widgets/label/label.dart';
+export 'src/widgets/auto_dispose.dart';
 
 export 'src/themes/waiting_theme.dart';
 export 'src/widgets/waiting.dart';

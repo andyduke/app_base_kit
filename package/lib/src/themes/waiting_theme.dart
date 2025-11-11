@@ -1,4 +1,4 @@
-import 'package:app_base_kit/app_base_kit.dart';
+import 'package:app_base_kit/src/utils/value_property.dart';
 import 'package:app_base_kit/src/widgets/waiting.dart';
 import 'package:flutter/material.dart';
 
