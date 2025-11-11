@@ -38,6 +38,12 @@ mixin AutoDispose<T extends StatefulWidget> on State<T> {
   }
 }
 
+extension DisposableAutoDispose on Disposable {
+  void autoDispose(AutoDispose owner) {
+    owner.autoDispose(this);
+  }
+}
+
 extension ChangeNotifierAutoDispose on ChangeNotifier {
   void autoDispose(AutoDispose owner) {
     owner.autoDispose(this);
