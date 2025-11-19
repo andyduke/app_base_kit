@@ -14,7 +14,7 @@ abstract interface class Disposable {
 /// Example:
 /// ```dart
 /// class _SomeState extends State<SomeWidget> with AutoDispose {
-///   late final controller = TestController()..autoDispose(this);
+///   late final controller = TestController()..autoDisposeWith(this);
 /// }
 /// ```
 mixin AutoDispose<T extends StatefulWidget> on State<T> {
@@ -39,25 +39,25 @@ mixin AutoDispose<T extends StatefulWidget> on State<T> {
 }
 
 extension DisposableAutoDispose on Disposable {
-  void autoDispose(AutoDispose owner) {
+  void autoDisposeWith(AutoDispose owner) {
     owner.autoDispose(this);
   }
 }
 
 extension ChangeNotifierAutoDispose on ChangeNotifier {
-  void autoDispose(AutoDispose owner) {
+  void autoDisposeWith(AutoDispose owner) {
     owner.autoDispose(this);
   }
 }
 
 extension AnimationControllerAutoDispose on AnimationController {
-  void autoDispose(AutoDispose owner) {
+  void autoDisposeWith(AutoDispose owner) {
     owner.autoDispose(this);
   }
 }
 
 extension SearchDelegateAutoDispose on SearchDelegate {
-  void autoDispose(AutoDispose owner) {
+  void autoDisposeWith(AutoDispose owner) {
     owner.autoDispose(this);
   }
 }
